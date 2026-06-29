@@ -16,13 +16,17 @@ let puntaje=0;
 let vidas=3;
 
 let velocidadCaida=200;
+let intervaloCaida;
 
 function iniciar(){
     setInterval(bajarLimon,velocidadCaida) //funcion recibe otra funcion es setIterval, recibe tiempo en milisegundos(ms)
     aparecerLimon();
-    dibujarSuelo();
-    dibujarPersonaje();
-    dibujarLimon();
+    //dibujarSuelo();
+    //dibujarPersonaje();
+    //dibujarLimon();
+    actualizarPantalla();
+    intervaloCaida = setInterval(bajarLimon, velocidadCaida);
+
     
 
 }
@@ -69,11 +73,10 @@ function dibujarLimon(){
 }
 
 function bajarLimon(){
-    limonY=limonY+10;
+    limonY = limonY + 10;
     actualizarPantalla();
     detectarColision();
     detectarPiso();
-
 }
 
 function detectarColision() {
@@ -81,15 +84,24 @@ function detectarColision() {
     colisionX = limonX < personajeX + ANCHO_PERSONAJE &&limonX + ANCHO_LIMON > personajeX;
 
     let colisionY;
-    colisionY = limonY < personajeY + ALTURA_PERSONAJE &&limonY + ALTO_LIMON > personajeY;
+    colisionY = limonY < personajeY + ALTURA_PERSONAJE && limonY + ALTO_LIMON > personajeY;
 
     if (colisionX && colisionY) {
         puntaje = puntaje + 1;
+        mostrarEnSpan('txtPuntaje', puntaje);
 
-        let componente = document.getElementById('txtPuntaje'); //funcion generada en utils
-        componente.textContent = puntaje; //funcion generada en utils
+        if (puntaje == 3) {
+            cambiarVelocidadCaida(150);
+        }
 
-        //alert('ATRAPADO!!');
+        if (puntaje == 6) {
+            cambiarVelocidadCaida(100);
+        }
+
+        if (puntaje == 10) {
+            clearInterval(intervaloCaida);
+            alert('¡GANASTE! Eres el campeón atrapando limones.');
+        }
 
         aparecerLimon();
         actualizarPantalla();
@@ -114,4 +126,9 @@ function detectarPiso() {
     }
 }
 
+function cambiarVelocidadCaida(nuevaVelocidad) {
+    velocidadCaida = nuevaVelocidad;
 
+    clearInterval(intervaloCaida);
+    intervaloCaida = setInterval(bajarLimon, velocidadCaida);
+}
