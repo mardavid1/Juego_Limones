@@ -15,7 +15,10 @@ let puntaje=0;
 
 let vidas=3;
 
+let velocidadCaida=200;
+
 function iniciar(){
+    setInterval(bajarLimon,velocidadCaida) //funcion recibe otra funcion es setIterval, recibe tiempo en milisegundos(ms)
     aparecerLimon();
     dibujarSuelo();
     dibujarPersonaje();
@@ -83,8 +86,8 @@ function detectarColision() {
     if (colisionX && colisionY) {
         puntaje = puntaje + 1;
 
-        let componente = document.getElementById('txtPuntaje');
-        componente.textContent = puntaje;
+        let componente = document.getElementById('txtPuntaje'); //funcion generada en utils
+        componente.textContent = puntaje; //funcion generada en utils
 
         alert('ATRAPADO!!');
 
@@ -102,7 +105,7 @@ function detectarPiso(){
     if(limonY+ALTO_LIMON==canvas.height-ALTURA_SUELO){
         aparecerLimon();
         vidas=vidas-1;
-        mostrarEnSpan('txtVidas',vidas);
+        mostrarEnSpan('txtVidas',vidas); //Creamos una funcion para optimizar el codigo en utils.js 
     }
 }
 
