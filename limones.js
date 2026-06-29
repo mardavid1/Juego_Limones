@@ -19,16 +19,12 @@ let velocidadCaida=200;
 let intervaloCaida;
 
 function iniciar(){
-    setInterval(bajarLimon,velocidadCaida) //funcion recibe otra funcion es setIterval, recibe tiempo en milisegundos(ms)
+    clearInterval(intervaloCaida);
+
     aparecerLimon();
-    //dibujarSuelo();
-    //dibujarPersonaje();
-    //dibujarLimon();
     actualizarPantalla();
+
     intervaloCaida = setInterval(bajarLimon, velocidadCaida);
-
-    
-
 }
 
 function dibujarSuelo(){
@@ -132,3 +128,21 @@ function cambiarVelocidadCaida(nuevaVelocidad) {
     clearInterval(intervaloCaida);
     intervaloCaida = setInterval(bajarLimon, velocidadCaida);
 }
+
+function reiniciar(){
+    puntaje = 0;
+    vidas = 3;
+    velocidadCaida = 200;
+
+    personajeX = (canvas.width - ANCHO_PERSONAJE) / 2;
+    personajeY = canvas.height - (ALTURA_SUELO + ALTURA_PERSONAJE);
+
+    mostrarEnSpan('txtPuntaje', puntaje);
+    mostrarEnSpan('txtVidas', vidas);
+
+    iniciar();
+}
+
+
+
+
