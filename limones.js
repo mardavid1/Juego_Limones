@@ -89,7 +89,7 @@ function detectarColision() {
         let componente = document.getElementById('txtPuntaje'); //funcion generada en utils
         componente.textContent = puntaje; //funcion generada en utils
 
-        alert('ATRAPADO!!');
+        //alert('ATRAPADO!!');
 
         aparecerLimon();
         actualizarPantalla();
@@ -101,11 +101,16 @@ function aparecerLimon() {
     limonY = 0;
 }
 
-function detectarPiso(){
-    if(limonY+ALTO_LIMON==canvas.height-ALTURA_SUELO){
+function detectarPiso() {
+    if (limonY + ALTO_LIMON >= canvas.height - ALTURA_SUELO) {
         aparecerLimon();
-        vidas=vidas-1;
-        mostrarEnSpan('txtVidas',vidas); //Creamos una funcion para optimizar el codigo en utils.js 
+
+        vidas = vidas - 1;
+        mostrarEnSpan('txtVidas', vidas);
+
+        if (vidas <= 0) {
+            alert('Game Over');
+        }
     }
 }
 
